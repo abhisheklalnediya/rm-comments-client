@@ -1,0 +1,117 @@
+.btn {
+  background-color: #e8ba6e;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 12px 24px;
+  text-decoration: none;
+  border: none;
+}
+.btn:hover {
+  background-color: #f2ab1e;
+}
+.btn:active {
+  position: relative;
+  top: 1px;
+}
+
+.container {
+  border: 1px solid #dddddd;
+  padding: 10px;
+  max-width: 80%;
+  margin: 20px auto;
+  background-color: #f4f3ef;
+  .new-comment {
+    border: 1px solid #8c8b87;
+    position: relative;
+    .input {
+      border: none;
+      width: 100%;
+      font-size: 14px;
+      resize: vertical;
+      box-sizing: border-box;
+      max-height: 120px;
+      padding: 20px 135px 20px 15px;
+      background-color: transparent;
+    }
+    .submit-btn {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+    }
+  }
+  .comments-container {
+    padding-top: 40px;
+    .comment-item {
+      border-left: 1px dotted #afaea9;
+      &:last-of-type {
+        border-left: none;
+      }
+      // padding-bottom: 10px;
+      .comment-top {
+        margin-left: -1px;
+        position: relative;
+        .comment-username {
+          position: absolute;
+          left: 4px;
+          top: -20px;
+          color: #afaea9;
+          font-size: 11.5px;
+          font-family: monospace;
+        }
+        .comment-time {
+          position: absolute;
+          right: 4px;
+          top: -20px;
+          color: #afaea9;
+          font-size: 11.5px;
+          font-family: monospace;
+        }
+        .comment {
+          border: 1px solid #afaea9;
+          padding: 10px;
+          font-size: 14px;
+        }
+      }
+      .comment-bottom {
+        // padding-bo ttom: 20px;
+      }
+
+      .comment-replies-actions {
+        &.has-replies {
+          > .comment-actions {
+            border-left: 1px dotted #afaea9;
+          }
+        }
+        .comment-actions {
+          padding-left: 20px;
+          padding-bottom: 30px;
+          button {
+            border: 1px solid #e8ba6e;
+            background: #fff;
+            margin: 5px 5px 1px 0px;
+            cursor: pointer;
+            color: #e8ba6e;
+          }
+          button:hover {
+            border-color: #f2ab1e;
+          }
+          button:active {
+            position: relative;
+            top: 1px;
+          }
+        }
+        margin-left: 10px;
+        .comment-item {
+          border-left: none;
+        }
+      }
+    }
+  }
+}
