@@ -6,7 +6,8 @@ export interface ContextProps {
 
   comments: Comment[],
   newComment: Function,
-  editComment: Function
+  editComment: Function,
+  addReply: Function
 }
 
 const CommentContext = React.createContext<Partial<ContextProps>>({});
@@ -27,6 +28,8 @@ class CommentProvider extends React.Component<Props, State>{
       comments: []
     }
     this.newComment = this.newComment.bind(this)
+    this.addReply = this.addReply.bind(this)
+    this.editComment = this.editComment.bind(this)
   }
   componentDidMount() {
     getComments().then((comments: Comment[]) => {
@@ -47,16 +50,23 @@ class CommentProvider extends React.Component<Props, State>{
     }))
   }
   editComment(comment: Comment) {
-    return new Promise((resolve, reject) => editComment(comment).then(x => {
+    const fn = comment.id ? editComment : newComment
+    return new Promise((resolve, reject) => fn(comment).then(x => {
       console.log(x)
       if (x) {
         this.setState(state => ({
-          comments: [...state.comments, x]
+          comments: [...state.comments].map(c => (c.id === comment.id ? x : c))
         }))
       }
       resolve()
     }).catch((e: any) => {
       reject(e)
+    }))
+  }
+  addReply(id: string, owner: string) {
+    const dummyComment: Comment = { comment: "", parent: id, owner }
+    this.setState(state => ({
+      comments: [...state.comments, dummyComment]
     }))
   }
   render() {
@@ -66,7 +76,8 @@ class CommentProvider extends React.Component<Props, State>{
         value={{
           ...this.state,
           newComment: this.newComment,
-          editComment: this.editComment
+          editComment: this.editComment,
+          addReply: this.addReply
         }}
       >
         {this.props.children}

@@ -17,7 +17,7 @@ export class Comments extends Component<Props> {
         {u => (
           <CommentConsumer>
             {c => (
-              <CommentItem key={id} {...comment} onEdit={c.editComment} user={u.user && u.user.name}>
+              <CommentItem key={id} {...comment} onShowLogin={u.showLogin} onEdit={c.editComment} onAddReply={c.addReply} user={u.user && u.user.name}>
                 {replies.length ? replies.map(r => this.renderCommentItem(r)) : null}
               </CommentItem>
             )}

@@ -9,6 +9,8 @@ export interface Props {
   time: string
   owner: string
   onEdit: Function
+  onAddReply: Function
+  onShowLogin: Function
   user: string
 }
 export interface State {
@@ -20,23 +22,30 @@ export class CommentItem extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      edit: false,
-      newComment: ""
+      edit: !props.comment || false,
+      newComment: props.comment
     }
     this.onEdit = this.onEdit.bind(this)
     this.setNewComment = this.setNewComment.bind(this)
+    this.onAddReply = this.onAddReply.bind(this)
+  }
+  componentDidMount() {
+    const { edit } = this.state
+    if (edit) {
+      this.inputRef.current!.focus()
+    }
   }
   onEdit() {
     const { edit, newComment } = this.state
-    const { id, onEdit } = this.props
+    const { id, onEdit, parent } = this.props
     if (edit) {
       this.setState({ edit: false }, () => {
         onEdit({
-          id, comment: newComment
+          id, comment: newComment, parent
         }).then(() => {
-          this.setState({
-            newComment: ""
-          })
+          // this.setState({
+          //   newComment: ""
+          // })
         })
       })
     } else {
@@ -48,11 +57,19 @@ export class CommentItem extends Component<Props, State> {
   setNewComment(e: React.ChangeEvent<HTMLInputElement>) {
     this.setState({ newComment: e.currentTarget.textContent || "" })
   }
+  onAddReply() {
+    const { id, onAddReply, onShowLogin, user } = this.props
+    if (user) {
 
+      onAddReply(id, user)
+    } else {
+      onShowLogin()
+    }
+  }
   render() {
-    const { edit } = this.state
-    const { comment, time, owner, user } = this.props
-    const fTime = (new Date(time)).toLocaleString()
+    const { edit, newComment } = this.state
+    const { comment, time, owner, user, id } = this.props
+    const fTime = time ? (new Date(time)).toLocaleString() : ''
     return (
       <div className="comment-item">
         <div className="comment-top">
@@ -63,8 +80,8 @@ export class CommentItem extends Component<Props, State> {
         <div className="comment-bottom">
           <div className={classnames('comment-replies-actions', { 'has-replies': this.props.children && true })}>
             <div className="comment-actions">
-              {user && user === owner && <button onClick={this.onEdit}>{edit ? 'Save' : 'Edit'}</button>}
-              <button>Reply</button>
+              {user && user === owner && <button disabled={edit && newComment === comment} onClick={this.onEdit}>{edit ? 'Save' : 'Edit'}</button>}
+              {id && <button onClick={this.onAddReply}>Reply</button>}
             </div>
             {this.props.children}
           </div>

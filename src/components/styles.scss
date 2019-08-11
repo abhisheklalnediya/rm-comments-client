@@ -89,7 +89,8 @@ label {
       font-size: 14px;
       resize: vertical;
       box-sizing: border-box;
-      max-height: 120px;
+      max-height: 140px;
+      min-height: 71px;
       padding: 20px 135px 20px 15px;
       background-color: transparent;
     }
@@ -130,6 +131,7 @@ label {
           border: 1px solid #afaea9;
           padding: 10px;
           font-size: 14px;
+          white-space: pre-line;
         }
       }
       .comment-replies-actions {
