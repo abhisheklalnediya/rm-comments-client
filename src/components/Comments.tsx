@@ -1,26 +1,34 @@
 import React, { Component } from 'react'
 import { CommentItem } from './CommentItem';
+import { Comment, CommentConsumer, UserConsumer } from '../context'
 
-const comments = [
-  { id: "1", },
-  { id: "2" },
-  { id: "3" },
-  { id: "4", parent: "1" }
-]
+interface Props {
+  comments: Comment[]
+}
 
-export class Comments extends Component {
+export class Comments extends Component<Props> {
   renderCommentItem(comment: any) {
     const { id } = comment
-    console.log(comment)
+    const { comments } = this.props;
     const replies = comments.filter(x => x.parent && x.parent === id)
-    console.log(replies)
     return (
-      <CommentItem key={id} {...comment} >
-        {replies.length ? replies.map(r => this.renderCommentItem(r.id)) : null}
-      </CommentItem>
+
+      <UserConsumer>
+        {u => (
+          <CommentConsumer>
+            {c => (
+              <CommentItem key={id} {...comment} onEdit={c.editComment} user={u.user && u.user.name}>
+                {replies.length ? replies.map(r => this.renderCommentItem(r)) : null}
+              </CommentItem>
+            )}
+          </CommentConsumer>
+        )}
+      </UserConsumer>
     )
   }
   render() {
+    const { comments } = this.props;
+    console.log(comments)
     const parentComments = comments.filter(c => !c.parent)
     return (
       <div className="comments-container">

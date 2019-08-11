@@ -1,3 +1,39 @@
+a {
+  color: #f2ab1e;
+  cursor: pointer;
+}
+.loginLink {
+  padding: 5px 5px;
+  display: inline-block;
+  font-weight: 600;
+}
+button {
+  border: 1px solid #e8ba6e;
+  background: #fff;
+  margin: 5px 5px 1px 0px;
+  cursor: pointer;
+  color: #e8ba6e;
+}
+button:not([disabled]):hover {
+  border-color: #f2ab1e;
+}
+button:not([disabled]):active {
+  position: relative;
+  top: 1px;
+}
+button[disabled] {
+  border-color: #ffe4b9;
+  color: #ffe4b9;
+  cursor: default;
+}
+form {
+  label {
+    display: block;
+  }
+  + form {
+    margin-top: 20px;
+  }
+}
 .btn {
   background-color: #e8ba6e;
   -moz-border-radius: 4px;
@@ -13,12 +49,27 @@
   text-decoration: none;
   border: none;
 }
-.btn:hover {
+.btn:not([disabled]):hover {
   background-color: #f2ab1e;
 }
-.btn:active {
+.btn:not([disabled]):active {
   position: relative;
   top: 1px;
+}
+.btn[disabled] {
+  color: #fff;
+  background-color: #ffe4b9;
+  cursor: default;
+}
+.error-msg {
+  color: #f2ab1e;
+  font-size: 12px;
+  padding: 7px 0px;
+  display: block;
+}
+
+label {
+  color: #8a8a8a;
 }
 
 .container {
@@ -27,6 +78,8 @@
   max-width: 80%;
   margin: 20px auto;
   background-color: #f4f3ef;
+  max-height: 90vh;
+  overflow: auto;
   .new-comment {
     border: 1px solid #8c8b87;
     position: relative;
@@ -79,10 +132,6 @@
           font-size: 14px;
         }
       }
-      .comment-bottom {
-        // padding-bo ttom: 20px;
-      }
-
       .comment-replies-actions {
         &.has-replies {
           > .comment-actions {
@@ -92,24 +141,10 @@
         .comment-actions {
           padding-left: 20px;
           padding-bottom: 30px;
-          button {
-            border: 1px solid #e8ba6e;
-            background: #fff;
-            margin: 5px 5px 1px 0px;
-            cursor: pointer;
-            color: #e8ba6e;
-          }
-          button:hover {
-            border-color: #f2ab1e;
-          }
-          button:active {
-            position: relative;
-            top: 1px;
-          }
         }
         margin-left: 10px;
         .comment-item {
-          border-left: none;
+          // border-left: none;
         }
       }
     }
