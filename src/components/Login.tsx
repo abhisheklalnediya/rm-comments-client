@@ -20,8 +20,8 @@ const initialState = {
   name: "",
   password: "",
   error: "",
-  lEmail: "abhisheklalnediya@gmail.com",
-  lPassword: "12345678",
+  lEmail: "",
+  lPassword: "",
   lError: "",
 }
 
@@ -82,7 +82,7 @@ export class Login extends Component<Props, State> {
           </div>
           <div>
             <label >Password</label>
-            <input name="password" type="password" onChange={this.onChange} value={password} minLength={6} required />
+            <input name="password" type="password" onChange={this.onChange} value={password} minLength={8} required />
           </div>
           <span className="error-msg">{error}</span>
           <div>

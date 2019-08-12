@@ -35,6 +35,7 @@ export class Comments extends Component<Props> {
         {
           parentComments.map(c => this.renderCommentItem(c))
         }
+        {!parentComments.length && <span className="empty-msg">No commnets yet.</span>}
       </div>
     )
   }
